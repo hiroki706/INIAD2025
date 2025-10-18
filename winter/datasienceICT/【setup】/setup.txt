@@ -1,0 +1,59 @@
+ds2025環境を再構築したり、ict2025-ds-greykite環境を作成する際、過去にArcGIS Pro を入れたPCだとESRIのcondaが干渉しエラー等が起きるケースが確認されています。その場合には、以下を行ってください（Windows前提）。以下の対処はds2025の例です。
+
+0) Anaconda promptにて確認
+where conda
+conda config --show envs_dirs
+conda config --show-sources
+
+
+出力にESRI関連パス（例：
+C:\Users\iniad\AppData\Local\ESRI\conda\envs /
+C:\Program Files\ArcGIS\Pro\bin\Python\envs）が見える場合、干渉の可能性が高いです。
+
+1) 環境変数でMiniconda側を最優先に固定。
+
+:: 実行後は一度anaconda promptを閉じて開き直すこと！
+setx CONDA_ENVS_PATH "%USERPROFILE%\miniconda3\envs;%USERPROFILE%\.conda\envs"
+setx CONDA_PKGS_DIRS "%USERPROFILE%\miniconda3\pkgs;%USERPROFILE%\.conda\pkgs"
+
+
+再度開き直して確認：
+echo %CONDA_ENVS_PATH%
+echo %CONDA_PKGS_DIRS%
+conda info --envs
+
+2) 既に誤った場所に環境(例えばds2025)を構築してしまっていた場合は、当該envを消す
+conda deactivate
+conda env remove -n ds2025
+rd /s /q ""C:\users\iniad\AppData\Local\ESRI\conda\envs\ds2025"  2>nul
+rd /s /q ""C:\users\iniad\miniconda3\envs\ds2025"                 2>nul
+
+3) 環境を必ずMiniconda 側に作る（場所を明示）
+
+"C:\users\iniad\miniconda3\condabin\conda.bat" env create ^
+  -p "C:\users\iniad\miniconda3\envs\ds2025" ^
+  --file ds2025-win-fixed.yml
+
+※「prefix already exists」等のエラーが出たら 2) を再実行してからやり直す。
+
+4) 動作確認
+conda activate "C:\users\iniad\miniconda3\envs\ds2025"
+where python
+python --version
+python -c "import numpy, pandas, sklearn; print(numpy.__version__, pandas.__version__, sklearn.__version__)"
+jupyter lab --version
+jupyter lab
+
+
+5) うまくいかない時
+conda config --show-sources に ArcGIS の .condarc が出て、チャンネルに esri が見える場合、
+管理者権限でそのファイルを リネーム（例：.condarc.bak）して無効化してください。
+パス：C:\Program Files\ArcGIS\Pro\bin\Python\.condarc
+
+これらを試してみ解決しない場合は、以下の出力を添付してご連絡ください。
+
+where conda
+conda config --show envs_dirs
+conda config --show-sources
+
+宜しくお願い致します。
