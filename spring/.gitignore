@@ -1,0 +1,4 @@
+*.class
+*.out
+.venv/
+node_modules/

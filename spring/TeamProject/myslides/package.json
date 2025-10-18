@@ -1,0 +1,20 @@
+{
+  "name": "myslides",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build",
+    "dev": "slidev",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@iconify-json/carbon": "^1.2.10",
+    "@slidev/cli": "^52.0.0",
+    "@slidev/theme-default": "latest",
+    "@slidev/theme-seriph": "latest",
+    "vue": "^3.5.17"
+  },
+  "devDependencies": {
+    "playwright-chromium": "^1.54.1"
+  }
+}

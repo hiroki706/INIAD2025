@@ -1,0 +1,56 @@
+.slidev-page {
+    background-image: url("/bg.dio.svg");
+    background-position: center;
+    background-size: 99%;
+    background-repeat: no-repeat;
+
+    h2, h1 {
+        --uno: pb-2;
+    }
+    p, ul, ol, li {
+        --uno: space-y-2;
+    }
+    td {
+        --uno: text-sm;
+    }
+}
+
+.slidev-page ul {
+    li {
+        list-style-type: square;
+        --uno: text-2xl;
+    }
+    li::marker {
+        font-size: 1.8rem;
+        color: red;
+    }
+
+    ol li {
+        list-style-type: decimal!important;
+        --uno: text-xl;
+    }
+
+    ol li::marker {
+        font-size: 1.2rem;
+        color: var(--slidev-color-primary)!important;
+    }
+
+    ul li {
+        list-style-type: disc;
+        --uno: text-xl;
+    }
+    ul li::marker {
+        font-size: 1.3rem;
+        color: blue;
+    }
+
+    ul ul li {
+        list-style-type: square;
+        --uno: text-lg;
+    }
+    ul ul li::marker {
+        color: goldenrod;
+        list-style-type: none;
+        font-size: 1.4rem;
+    }
+}

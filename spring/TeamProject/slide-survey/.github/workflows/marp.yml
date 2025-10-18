@@ -1,0 +1,62 @@
+name: Build and Release Slides
+
+on:
+  push:
+    tags:
+      - '*'  # バージョンタグのプッシュ時にトリガー
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: リポジトリのチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Node.jsのセットアップ
+        uses: actions/setup-node@v3
+
+      - name: 依存関係のインストール
+        run: |
+          npm ci
+          sudo apt install fonts-noto -y
+          sudo apt install libreoffice -y
+
+      - name: 環境変数の設定（ChromeとPuppeteerのため）
+        run: |
+          echo "CHROME_NO_SANDBOX=1" >> $GITHUB_ENV
+          echo "PUPPETEER_TIMEOUT=0" >> $GITHUB_ENV
+
+      - name: PDFの生成
+        run: npx marp -I ./src --pdf -o dist/slides.pdf
+
+      - name: PPTXの生成
+        run: npx marp -I ./src --pptx-editable -o dist/slides.pptx
+
+      - name: アーティファクトのアップロード
+        uses: actions/upload-artifact@v3
+        with:
+          name: slide-assets
+          path: dist/
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: リポジトリのチェックアウト
+        uses: actions/checkout@v4
+
+      - name: アーティファクトのダウンロード
+        uses: actions/download-artifact@v3
+        with:
+          name: slide-assets
+          path: dist/
+
+      - name: GitHubリリースの作成
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist/slides.pdf
+            dist/slides.pptx

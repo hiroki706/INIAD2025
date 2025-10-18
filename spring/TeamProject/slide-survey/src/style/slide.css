@@ -1,0 +1,27 @@
+/* @theme mystyle */
+
+@import "gaia";
+
+section::after {
+    content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);
+}
+
+:root {
+    --mini-font-size: 20px;
+    --header-footer-height: 50px;
+}
+
+blockquote {
+    border-top: 0.1em dashed var(--black);
+    font-size: var(--mini-font-size);
+    width: 100%;
+    width: 90%;
+}
+
+blockquote::before {
+    display: none;
+}
+
+blockquote::after {
+    display: none;
+}

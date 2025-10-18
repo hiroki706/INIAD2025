@@ -1,0 +1,451 @@
+     1	
+     2	
+     3	
+     4	
+     5	
+     6	
+     7	Internet Engineering Task Force (IETF)                       C. Ishikawa
+     8	Request for Comments: 6588                 YRP Ubiquitous Networking Lab
+     9	Category: Informational                                       April 2012
+    10	ISSN: 2070-1721
+    11	
+    12	
+    13	                       A URN Namespace for ucode
+    14	
+    15	Abstract
+    16	
+    17	   This document describes a Uniform Resource Name (URN) namespace for
+    18	   ucode, an identifier system for objects and places.  ucode technology
+    19	   is used in many applications, and this document provides a URN
+    20	   namespace for ucode to enable its use in Internet-related devices and
+    21	   software.
+    22	
+    23	Status of This Memo
+    24	
+    25	   This document is not an Internet Standards Track specification; it is
+    26	   published for informational purposes.
+    27	
+    28	   This document is a product of the Internet Engineering Task Force
+    29	   (IETF).  It represents the consensus of the IETF community.  It has
+    30	   received public review and has been approved for publication by the
+    31	   Internet Engineering Steering Group (IESG).  Not all documents
+    32	   approved by the IESG are a candidate for any level of Internet
+    33	   Standard; see Section 2 of RFC 5741.
+    34	
+    35	   Information about the current status of this document, any errata,
+    36	   and how to provide feedback on it may be obtained at
+    37	   http://www.rfc-editor.org/info/rfc6588.
+    38	
+    39	Copyright Notice
+    40	
+    41	   Copyright (c) 2012 IETF Trust and the persons identified as the
+    42	   document authors.  All rights reserved.
+    43	
+    44	   This document is subject to BCP 78 and the IETF Trust's Legal
+    45	   Provisions Relating to IETF Documents
+    46	   (http://trustee.ietf.org/license-info) in effect on the date of
+    47	   publication of this document.  Please review these documents
+    48	   carefully, as they describe your rights and restrictions with respect
+    49	   to this document.  Code Components extracted from this document must
+    50	   include Simplified BSD License text as described in Section 4.e of
+    51	   the Trust Legal Provisions and are provided without warranty as
+    52	   described in the Simplified BSD License.
+    53	
+    54	
+    55	
+    56	
+    57	
+    58	Ishikawa                      Informational                     [Page 1]
+    59	
+    60	RFC 6588                 URN Namespace for ucode              April 2012
+    61	
+    62	
+    63	1.  Introduction
+    64	
+    65	   ucode [UCODE] is an identifier to be stored in many types of tags
+    66	   (not limited to Radio Frequency Identification (RFID) tags).  Its
+    67	   allocation and management is handled by the Ubiquitous ID Center
+    68	   [UIDC].  The embedding of ucode in many types of tags (RFID tags,
+    69	   optical code, infrared markers, and even sound source) is also
+    70	   specified by the Ubiquitous ID Center.
+    71	
+    72	   The basic length of ucode is 128 bits, but it is extensible in units
+    73	   of 128 bits if necessary.
+    74	
+    75	   ucode has been devised to identify objects and places where existing
+    76	   standards do not fit the application needs or the scope of the
+    77	   applications or where the allocation policy of existing standards is
+    78	   too limited for Small and Medium Enterprises (SMEs), small-scale
+    79	   research laboratories at academic institutions, or individual users.
+    80	
+    81	   Applications that use ucode take advantage of the Internet
+    82	   extensively.  Use of ucode is open to anybody.  Those who wish to
+    83	   have ucode allocated can do so either by having ucode subspace
+    84	   allocated to them directly from the Ubiquitous ID Center [UIDC] or by
+    85	   obtaining tags that have pre-stored ucode from so called "providers"
+    86	   [UCDMIP].  Such tags are certified as ucode tags [UIDTAG], and the
+    87	   reader specifications are published so that there will be many
+    88	   readers available for such tags.
+    89	
+    90	   By having a URN for ucode, we can facilitate the use of ucode in many
+    91	   Internet-related devices and software for the benefit of existing and
+    92	   future users of ucode and people who will access such tags attached
+    93	   to objects and places.  Since an application based on ucode can run
+    94	   across organizational boundaries and spread across regions and
+    95	   countries, a formal URN Namespace Identifier (NID) assignment for
+    96	   'ucode' is requested.
+    97	
+    98	2.  'ucode' Registration Template
+    99	
+   100	   Namespace ID:
+   101	
+   102	   'ucode' requested
+   103	
+   104	   Registration Information:
+   105	
+   106	   Registration Version Number: 1
+   107	   Registration Date: 2011-12-21
+   108	
+   109	
+   110	
+   111	
+   112	
+   113	
+   114	Ishikawa                      Informational                     [Page 2]
+   115	
+   116	RFC 6588                 URN Namespace for ucode              April 2012
+   117	
+   118	
+   119	   Declared registrant of the namespace:
+   120	
+   121	   T-Engine Forum
+   122	   2-20-1, Nishi-Gotanda
+   123	   Shinagawa, Tokyo, 141-0031
+   124	   Japan
+   125	   office@t-engine.org
+   126	   Tel: +81-3-5437-0572
+   127	
+   128	   Declaration of syntactic structure:
+   129	
+   130	   The structure of the namespace for 'ucode' using the hexadecimal
+   131	   representation of the identifier is as follows using ABNF [RFC5234].
+   132	
+   133	   UCODE-URN = "urn:ucode:" ucode-name
+   134	   ucode-name = "_" ucode-number
+   135	   ucode-number = 1*ucode-value
+   136	   ucode-value = 32HEXDIG
+   137	   HEXDIG         =  DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
+   138	   DIGIT          =  %x30-39
+   139	                  ; 0-9
+   140	
+   141	   NOTE 1:  "1*" at the start of the ucode-number definition is not a
+   142	   typo.  Although the currently used ucode [UCODE] is 128 bits (16
+   143	   octets), thus requiring 32 hexadecimal characters to represent
+   144	   serially, ucode is designed to be extensible in increments of 128
+   145	   bits.  So, in the distant future, we may need to repeat the chunks of
+   146	   128 bits.  This is why "1*" precedes ucode-value.
+   147	
+   148	   NOTE 2:  ucode-name starts with a "_" because it is also intended to
+   149	   be used as an identifier for XML [W3CXML].  Because an XML tag can't
+   150	   start with a digit, an "_" (underscore) is inserted at the beginning
+   151	   to make sure ucode-name starts with a non-digit.  For example, the
+   152	   128-bit ucode value 0123456789ABCDEF0123456789ABCDEF, expressed in a
+   153	   series of hexadecimal digits, is as follows:
+   154	
+   155	   urn:ucode:_0123456789ABCDEF0123456789ABCDEF
+   156	
+   157	   Relevant ancillary documentation:
+   158	
+   159	   ucode, the identifier expressed by ucode-number, is managed by the
+   160	   Ubiquitous ID Center [UIDC], which is a sub-organization of the
+   161	   T-Engine Forum [TEF].  The document "Ubiquitous Code: ucode" [UCODE]
+   162	   defines this identifier system.
+   163	
+   164	
+   165	
+   166	
+   167	
+   168	
+   169	
+   170	Ishikawa                      Informational                     [Page 3]
+   171	
+   172	RFC 6588                 URN Namespace for ucode              April 2012
+   173	
+   174	
+   175	   Identifier uniqueness considerations:
+   176	
+   177	   The 'ucode' namespace is managed by the Ubiquitous ID Center.  The
+   178	   Ubiquitous ID Center assigns the identifier, ucode, in such a way
+   179	   that the uniqueness of the 'ucode' namespace will be maintained.
+   180	
+   181	   Identifier persistence considerations:
+   182	
+   183	   The assignment process guarantees that names are not reassigned and
+   184	   that the binding between the name and its resource is permanent,
+   185	   regardless of any standards or organizational changes or the
+   186	   assignment period.
+   187	
+   188	   Process of identifier assignment:
+   189	
+   190	   Names are assigned by the Ubiquitous ID Center and by any entities
+   191	   that are sub-delegated by the Ubiquitous ID Center.  This assignment
+   192	   process is based on "ucode Management Implementing Procedures"
+   193	   [UCDMIP] established by the Ubiquitous ID Center.
+   194	
+   195	   Process of identifier resolution:
+   196	
+   197	   The process of identifier resolution is currently based on the "ucode
+   198	   Resolution Protocol" [UCSURP].  It will be enhanced by using newer
+   199	   recommendations from ITU-T and/or standards from ISO.
+   200	
+   201	   Rules for lexical equivalence:
+   202	
+   203	   The entire UCODE-URN is case-sensitive.
+   204	
+   205	   NOTE: This is an additional restriction imposed on the ucode
+   206	   namespace by the requirements of some major applications of ucode in
+   207	   existence.  Only capital "A", "B", "C", ..., "F" are allowed as part
+   208	   of hexadecimal characters.
+   209	
+   210	   Conformance with URN syntax:
+   211	
+   212	   There are no special reserved characters.  The URN of this namespace
+   213	   conforms to RFC 2141 [RFC2141] and RFC 3986 [RFC3986].
+   214	
+   215	   Validation mechanism:
+   216	
+   217	   No special considerations.
+   218	
+   219	   Scope:
+   220	
+   221	   Global.
+   222	
+   223	
+   224	
+   225	
+   226	Ishikawa                      Informational                     [Page 4]
+   227	
+   228	RFC 6588                 URN Namespace for ucode              April 2012
+   229	
+   230	
+   231	3.  IANA Considerations
+   232	
+   233	   One URN Namespace registration for 'ucode'  (46) has been entered
+   234	   into the IANA "Formal URN Namespaces" sub-registry for URN NIDs.
+   235	
+   236	4.  Namespace Considerations
+   237	
+   238	   ucode, the identifier expressed by ucode-number, is a unique
+   239	   identification number to identify a tangible object or a place.
+   240	   Additionally, ucode can be assigned to "content" or "information"
+   241	   that does not exist in the real world or a "concept" that is yet more
+   242	   abstract.
+   243	
+   244	   ucode has been devised to identify objects and places where existing
+   245	   standards do not fit the application needs or the scope of the
+   246	   applications or where the allocation policy of existing standards is
+   247	   too limited for SMEs, small-scale research laboratories at academic
+   248	   institutions, or individual users.
+   249	
+   250	   ucode is only an identification number, and its value (or its sub-
+   251	   bitfields) does not contain any pre-assigned meaning.  Any relevant
+   252	   information about the object or place to which a ucode is assigned is
+   253	   stored in a data server that can be reached after a "resolution
+   254	   process" [UCSURP].  This resolution process usually occurs over the
+   255	   Internet.
+   256	
+   257	   ucode can be assigned to an object to be identified regardless of the
+   258	   type of application.  ucode is expected to be stored in any kind of
+   259	   tags (2D optical code, RFID, etc.), and it provides a framework where
+   260	   anyone can obtain unique numbers for identification purposes.
+   261	
+   262	   ucode has been designed to provide the services outlined in ITU-T
+   263	   Recommendation F.771 [ITU-T-F771] and to operate in the framework of
+   264	   ITU-T Recommendation H.621 [ITU-T-H621].
+   265	
+   266	   ucode architecture is general enough to cover many applications for
+   267	   the users.
+   268	
+   269	5.  Community Considerations
+   270	
+   271	   This namespace enables ucode to be stored in tags that are designed
+   272	   to store URN.  Also, ucode-related information can be described as
+   273	   metadata using the URN namespace.  Thus, the namespace facilitates
+   274	   the exchange of descriptions regarding objects and places among
+   275	   multiple organizations.
+   276	
+   277	
+   278	
+   279	
+   280	
+   281	
+   282	Ishikawa                      Informational                     [Page 5]
+   283	
+   284	RFC 6588                 URN Namespace for ucode              April 2012
+   285	
+   286	
+   287	   It is expected that many small-scale providers will offer ucode tags
+   288	   to small users and that large scale providers will hand out millions
+   289	   of tags to users.
+   290	
+   291	   The resolution servers and applications will be available to general
+   292	   users with appropriate access control over the Internet.  The
+   293	   published specification for resolver and access services for 'ucode'
+   294	   allows the creation of client software for many types of computers
+   295	   including small mobile terminals and ever-popular smartphones.
+   296	
+   297	6.  Security Considerations
+   298	
+   299	   There are no additional security considerations other than those
+   300	   normally associated with the use and resolution of URNs in general.
+   301	
+   302	7.  References
+   303	
+   304	7.1.  Normative References
+   305	
+   306	   [UCODE]      T-Engine Forum, Ubiquitous ID Center, "ucode: Ubiquitous
+   307	                Code", UID-00010,
+   308	                <http://www.uidcenter.org/spec#UID-00010>.
+   309	
+   310	   [UCDMIP]     T-Engine Forum, Ubiquitous ID Center, "ucode Management
+   311	                Implementing Procedures", UID-00034,
+   312	                <http://www.uidcenter.org/spec#UID-00034>.
+   313	
+   314	   [UCSURP]     T-Engine Forum, Ubiquitous ID Center, "Simplified ucode
+   315	                Resolution Protocol", UID-00005,
+   316	                <http://www.uidcenter.org/spec#UID-00005>.
+   317	
+   318	   [UIDTAG]     T-Engine Forum, Ubiquitous ID Center, "ucode Tag
+   319	                Architecture", UID-00017,
+   320	                <http://www.uidcenter.org/spec#UID-00017>.
+   321	
+   322	   [RFC2141]    Moats, R., "URN Syntax", RFC 2141, May 1997.
+   323	
+   324	   [RFC3986]    Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
+   325	                Resource Identifier (URI): Generic Syntax", STD 66, RFC
+   326	                3986, January 2005.
+   327	
+   328	   [RFC5234]    Crocker, D., Ed., and P. Overell, "Augmented BNF for
+   329	                Syntax Specifications: ABNF", STD 68, RFC 5234, January
+   330	                2008.
+   331	
+   332	
+   333	
+   334	
+   335	
+   336	
+   337	
+   338	Ishikawa                      Informational                     [Page 6]
+   339	
+   340	RFC 6588                 URN Namespace for ucode              April 2012
+   341	
+   342	
+   343	   [ITU-T-F771] ITU-T, "Service description and requirements for
+   344	                multimedia information access triggered by tag-based
+   345	                identification", ITU-T Recommendation F.771,
+   346	                <http://www.itu.int/rec/T-REC-F.771-200808-I>.
+   347	
+   348	   [ITU-T-H621] ITU-T, "Architecture of a system for multimedia
+   349	                information access triggered by tag-based
+   350	                identification", ITU-T Recommendation H.621,
+   351	                <http://www.itu.int/rec/T-REC-H.621-200808-I>.
+   352	
+   353	7.2  Informative References
+   354	
+   355	   [W3CXML]     W3C, "Extensible Markup Language (XML) 1.1",
+   356	                <http://www.w3.org/TR/xml11/>.
+   357	
+   358	   [UIDC]       Ubiquitous ID Center, <http://www.uidcenter.org/>.
+   359	
+   360	   [TEF]        T-Engine Forum, <http://www.t-engine.org/>.
+   361	
+   362	8.  Acknowledgments
+   363	
+   364	   The author would like to thank Peter Saint-Andre, the Document
+   365	   Shepherd/Responsible Area Director for this document, for providing
+   366	   valuable suggestions.  The author would also like to thank the
+   367	   following people who helped to improve this document:
+   368	
+   369	   Adrian Farrel
+   370	
+   371	   David Harrington
+   372	
+   373	   Pete Resnick
+   374	
+   375	   Stephen Farrel
+   376	
+   377	   Ted Hardie
+   378	
+   379	   Wesley Eddy
+   380	
+   381	   The author would also like to thank the members of T-Engine Forum who
+   382	   have built prototype and real-world applications using ucode and
+   383	   offered valuable feedback.  Application examples from these members
+   384	   can be found on the Ubiquitous ID Center web site [UIDC] and on
+   385	   www.youtube.com (search for "uidcenter" without the quotes).
+   386	
+   387	
+   388	
+   389	
+   390	
+   391	
+   392	
+   393	
+   394	Ishikawa                      Informational                     [Page 7]
+   395	
+   396	RFC 6588                 URN Namespace for ucode              April 2012
+   397	
+   398	
+   399	9.  Contributors
+   400	
+   401	   Ken Sakamura
+   402	
+   403	   Noboru Koshizuka
+   404	
+   405	   Katsunori Shindo
+   406	
+   407	   Tomonori Usaka
+   408	
+   409	   Past and current members of the uID architecture group at the
+   410	   University of Tokyo and the YRP Ubiquitous Networking Laboratory (YRP
+   411	   UNL)
+   412	
+   413	Author's Address
+   414	
+   415	   Chiaki Ishikawa
+   416	   YRP Ubiquitous Networking Laboratory
+   417	   2-20-1, Nishi-Gotanda
+   418	   Shinagawa, Tokyo, 141-0031
+   419	   Japan
+   420	
+   421	   Tel: +81-3-5437-2270
+   422	   FAX: +81-3-5437-2271
+   423	   EMail: chiaki.ishikawa@ubin.jp
+   424	
+   425	
+   426	
+   427	
+   428	
+   429	
+   430	
+   431	
+   432	
+   433	
+   434	
+   435	
+   436	
+   437	
+   438	
+   439	
+   440	
+   441	
+   442	
+   443	
+   444	
+   445	
+   446	
+   447	
+   448	
+   449	
+   450	Ishikawa                      Informational                     [Page 8]
+   451	
