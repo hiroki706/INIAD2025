@@ -1,0 +1,6 @@
+[submodule "winter/INIAD_TeamProject_Group9Team3"]
+	path = winter/INIAD_TeamProject_Group9Team3
+	url = git@github.com:s1f10230101/INIAD_TeamProject_Group9Team3.git
+[submodule "winter/pre_soturon/rust_mtkernel3"]
+	path = winter/pre_soturon/rust_mtkernel3
+	url = git@github.com:hiroki706/rust-mtkernel-nano.git

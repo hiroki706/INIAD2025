@@ -1,0 +1,23 @@
+# Python-generated files
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+
+__pycache__/
+*.py[oc]
+node_modules/
+.venv/
+*.pptx
+*.html
+*.out
+tmp/
+node_modules/
+dist/
+*.elf
+*.o
+*.so
+.ipynb_checkpoints/
+*Zone.Identifier

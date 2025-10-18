@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "*.html": "html",
+        "**/templates/**/*.html": "django-html",
+        "tkernel.h": "c"
+    },
+    "marimo.pythonPath": "/home/iniad/Documents/INIAD2025/winter/.venv/bin/python3",
+    "marimo.watch": false
+}
