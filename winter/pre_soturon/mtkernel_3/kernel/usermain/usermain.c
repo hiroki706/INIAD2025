@@ -14,20 +14,32 @@
 #include <tk/tkernel.h>
 #include <tm/tmonitor.h>
 
-/*
- * Entry routine for the user application.
- * At this point, Initialize and start the user application.
- *
- * Entry routine is called from the initial task for Kernel,
- * so system call for stopping the task should not be issued 
- * from the contexts of entry routine.
- * We recommend that:
- * (1)'usermain()' only generates the user initial task.
- * (2)initialize and start the user application by the user
- * initial task.
- */
+void test_task(INT stacd, void *exinf) {
+    tm_printf("Hello, T-Kernel world!\n");
+    for(;;) {
+        tk_dly_tsk(1000); // 1秒待つ
+    }
+}
 
-WEAK_FUNC EXPORT INT	usermain( void )
-{
-	return 0;
+WEAK_FUNC EXPORT INT usermain(void) {
+    T_CTSK ctsk;
+    ID tskid;
+
+    ctsk.tskatr = TA_HLNG | TA_RNG0;
+    ctsk.task = test_task;
+    ctsk.itskpri = 10;
+    ctsk.stksz = 1024;
+
+    tskid = tk_cre_tsk(&ctsk);
+    if (tskid < E_OK) {
+        tm_printf("tk_cre_tsk error: %d\n", tskid);
+        return tskid;
+    }
+
+    tk_sta_tsk(tskid, 0);
+
+    // usermainは終了してはならない
+    tk_slp_tsk(TMO_FEVR);
+
+    return 0; // ここには来ない
 }

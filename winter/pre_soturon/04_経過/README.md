@@ -33,14 +33,9 @@ make -C build_make/
     - セミホスティングを試すも
     ```qemu-system-arm -M lm3s6965evb -nographic -semihosting-config enable=on,target=native -kernel mtkernel_3.elf```
     - 相変わらずなにも表示されずハングアップ。
-```bash
-arm-none-eabi-gcc -c -mcpu=cortex-m3 -mthumb -o startup.o startup.s
-arm-none-eabi-gcc -c -mcpu=cortex-m3 -mthumb -o hello_qemu.o hello_qemu.c  
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb --specs=rdimon.specs -T linker.ld -o hello_qemu.elf startup.o hello_qemu.o -nostartfiles
-```
-QEMUがSTM32L4ボード B-L475E-IOT01A をサポートしていることが確認できました。これにより、mtkernel_3 をQEMUで実行する道筋が立ちました。
-今後の計画は以下の通りです。
-   1. `mtkernel_3` のmakefileのターゲットを変更する。 mtkernel_3/build_make/makefile を編集し、TARGET を _IOTE_M367_ から _IOTE_STM32L4_ に変更します。
-   2. `mtkernel_3` を再ビルドする。 mtkernel_3/build_make ディレクトリで make clean と make を実行します。
-   3. 新しい `mtkernel_3.elf` をQEMUで実行する。 b-l475e-iot01a マシンモデルを使用します。コマンドは qemu-system-arm -M b-l475e-iot01a -nographic -kernel mtkernel_3.elf のようになります。
-   b-l475e-iot01a
+    - 自分のc言語ファイルは動作する
+    ```bash
+    arm-none-eabi-gcc -c -mcpu=cortex-m3 -mthumb -o startup.o startup.s
+    arm-none-eabi-gcc -c -mcpu=cortex-m3 -mthumb -o hello_qemu.o hello_qemu.c  
+    arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb --specs=rdimon.specs -T linker.ld -o hello_qemu.elf startup.o hello_qemu.o -nostartfiles
+    ```
