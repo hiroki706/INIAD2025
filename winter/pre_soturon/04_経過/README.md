@@ -39,3 +39,10 @@ make -C build_make/
     arm-none-eabi-gcc -c -mcpu=cortex-m3 -mthumb -o hello_qemu.o hello_qemu.c  
     arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb --specs=rdimon.specs -T linker.ld -o hello_qemu.elf startup.o hello_qemu.o -nostartfiles
     ```
+  - ターゲットマシンが違っている
+  - 先生: Arduino UNO R4のボードサポートがgithubにありmtk3_bsp2にcloneしたが、実機のブートローダーが変わってしまうらしい(まあいい)。
+    - ビルド方法
+    ```bash
+    # TODO
+    ```
+  - e2studioというIDEを使ってビルドするらしい。shellでできないのが悔しいがしょうがない
