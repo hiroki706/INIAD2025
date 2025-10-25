@@ -1,0 +1,36 @@
+[tools]
+# java = "21"
+python = "latest"
+uv = "latest"
+
+[tasks.runc]
+description = "Run C program"
+alias = "c"
+run = [
+    "gcc {{arg(name='fname', var=true)}} -o exe.out -Wall -pthread",
+    "./exe.out {{ option(name='arg', var=true, default='') }}",
+    ]
+dir = "{{cwd}}"
+
+[tasks.runjava]
+description = "Run Java program"
+alias = "jv"
+run = [
+    "javac {{arg(name='fname')}}.java",
+    "java {{arg(name='fname')}} {{ option(name='arg', var=true, default='') }}",
+]
+dir = "{{cwd}}"
+
+
+[tasks.runjavadir]
+description = "Run Java program"
+alias = "jvd"
+run = [
+    "javac {{arg(name='dirname')}}*.java",
+    "java {{arg(name='dirname')}}{{ option(name='main', default='Main') }}",
+]
+dir = "{{cwd}}"
+[env]
+OPENAI_API_KEY = "my-api-key"
+FIREFOX_BIN = "/mnt/c/Program Files/Mozilla Firefox/firefox.exe"
+UV_TORCH_BACKEND = "auto"
