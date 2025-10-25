@@ -8,7 +8,7 @@
                 "-I/home/iniad/Documents/INIAD2025/winter/pre_soturon/mtkernel_3/config"
             ],
             "intelliSenseMode": "linux-gcc-x64",
-            // "compilerPath": "mpicc",
+            "compilerPath": "mpicc",
             "cStandard": "c17",
             "cppStandard": "gnu++17",
             "defines": [
