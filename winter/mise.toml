@@ -1,6 +1,6 @@
 [tools]
 python = "3.11"
-rust = "latest"
+# "rust" = { version = "nightly", components = "rust-src" }
 uv = "latest"
 
 [tasks.comp]
