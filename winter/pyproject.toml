@@ -25,3 +25,8 @@ dependencies = [
 
 [tool.ruff.lint]
 ignore = ["F4", "E4"]
+
+[tool.uv.workspace]
+members = [
+    "csensyu4/ex06_np1/cd-album-list",
+]
