@@ -21,3 +21,8 @@ dist/
 *.so
 .ipynb_checkpoints/
 *Zone.Identifier
+
+# pixi environments
+.pixi/
+!.pixi/config.toml
+mylocalenv.py

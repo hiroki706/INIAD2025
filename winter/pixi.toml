@@ -1,0 +1,19 @@
+[workspace]
+authors = ["s1f10230101 <s1f102301011@iniad.org>"]
+channels = ["conda-forge"]
+name = "datasienceICT"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+numpy = ">=1.24.4,<2"
+pandas = ">=1.5.3,<2"
+matplotlib = ">=3.10.7,<4"
+statsmodels = ">=0.14.5,<0.15"
+plotly = ">=6.4.0,<7"
+greykite = ">=1.0.0,<2"
+jupyterlab = ">=4.4.10,<5"
+geopandas = "<1"
+openai = ">=2.7.2,<3"
